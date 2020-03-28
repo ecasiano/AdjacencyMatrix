@@ -35,7 +35,12 @@ def build_adjacency_matrix(L,D):
                 for i3 in range(L):
                     points[ctr] = np.array((i1*a1,i2*a2,i3*a3))
                     ctr += 1
-                        
+                    
+    # Cool man! Now you need to:
+    # i) iterate over all points
+    # ii) at each point, calculate the distance to each point
+    # iii) if NN, replace the adjacency matrix element accordingly
+    
     return points
 
 # Main
@@ -44,6 +49,5 @@ D=3
 points=build_adjacency_matrix(L,D)
 print("points:")
 print(points)      
-print(points)       
 
         
