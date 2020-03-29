@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 
 def build_adjacency_matrix(L,D):
     
+    # Number of lattice sites
+    M = L**D
+    
     # Define the basis vectors
     a1_vec = np.array((1,0,0))
     a2_vec = np.array((0,1,0))
@@ -17,7 +20,7 @@ def build_adjacency_matrix(L,D):
     a3 = np.linalg.norm(a3_vec)
    
     # Initialize array that will store the lattice vectors
-    points = np.zeros(L**D,dtype=(float,D))
+    points = np.zeros(M,dtype=(float,D))
     
     # Build the lattice vectors
     ctr = 0 # iteration counter
@@ -36,18 +39,25 @@ def build_adjacency_matrix(L,D):
                     points[ctr] = np.array((i1*a1,i2*a2,i3*a3))
                     ctr += 1
                     
-    # Cool man! Now you need to:
-    # i) iterate over all points
-    # ii) at each point, calculate the distance to each point
-    # iii) if NN, replace the adjacency matrix element accordingly
+    # Initialize adjacency matrix
+    A = np.zeros((M,M))
     
-    return points
+    # Calculate Nearest-Neighbor (NN) distance
+    r_NN = a1
+    
+    for i in range(M):
+        for j in range(i+1,M):
+            A[i,j] = (np.linalg.norm(points[i]-points[j]) <= r_NN)
+            A[j,i] = A[i,j]
+    
+    print(points)
+    return A
 
 # Main
 L=3
-D=3
-points=build_adjacency_matrix(L,D)
-print("points:")
-print(points)      
+D=2
+A=build_adjacency_matrix(L,D)
+# print("points:")
+print(A)      
 
         
