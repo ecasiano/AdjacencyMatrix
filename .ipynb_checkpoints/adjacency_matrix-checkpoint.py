@@ -61,6 +61,7 @@ def build_adjacency_matrix(L,D,boundary_condition='pbc'):
     return A
 
 # Main
-L=3
-D=2
-A=build_adjacency_matrix(L,D,'obc')
+L=2
+D=3
+A=build_adjacency_matrix(L,D,'pbc')
+print(A)
