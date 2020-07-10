@@ -40,7 +40,7 @@ def build_adjacency_matrix(L,D,boundary_condition='pbc'):
                     ctr += 1
                     
     # Initialize adjacency matrix
-    A = np.zeros((M,M))
+    A = np.zeros((M,M),dtype=int)
     
     # Set Nearest-Neighbor (NN) distance
     r_NN = a1
@@ -49,6 +49,9 @@ def build_adjacency_matrix(L,D,boundary_condition='pbc'):
     for i in range(M):
         for j in range(i+1,M):
             
+            # CHECK HOW TO IMPLEMENT B.C's from
+            # THE PAPER NATHAN SENT!!!!!!!!!!!!!!!
+            # WILL BREAK FOR R_NNN and so forth.
             if boundary_condition=='pbc':
                 A[i,j] = (np.linalg.norm(points[i]-points[j]) <= r_NN \
                 or np.linalg.norm(points[i]-points[j]) == L-1)
@@ -61,7 +64,13 @@ def build_adjacency_matrix(L,D,boundary_condition='pbc'):
     return A
 
 # Main
-L=2
-D=3
+L=3
+D=2
 A=build_adjacency_matrix(L,D,'pbc')
-print(A)
+i = 1
+print(A,"\n")
+print(A[i],"\n")
+nearest_neighbors = np.nonzero(A[i])[0]
+print(nearest_neighbors,"\n")
+print(np.random.choice(nearest_neighbors))
+# print(np.transpose(np.nonzero(A)))
